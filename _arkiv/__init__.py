@@ -22,8 +22,8 @@ def classFactory(iface):  # pylint: disable=invalid-name
     :type iface: QgisInterface
     """
     # the translation has to be in place before the first widget is created
-    from .core.translation import install_translator
+    from .translation import install_translator
     install_translator()
 
-    from .plugin import SearchRelatedFeatures
+    from .search_related_features import SearchRelatedFeatures
     return SearchRelatedFeatures(iface)

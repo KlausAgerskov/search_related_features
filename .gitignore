@@ -4,3 +4,5 @@ __pycache__/
 *.zip
 .vscode/
 *.qm
+*.ps1
+build/

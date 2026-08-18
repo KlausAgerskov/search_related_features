@@ -138,6 +138,10 @@ function Get-MetadataValue($key) {
 }
 
 
+# Source files for pylupdate5, when strings need pulling out of the code:
+#     pylupdate5 *.py core\*.py gui\*.py -ts i18n\search_related_features_da.ts
+
+
 # -- 1. translations -------------------------------------------------------
 
 if ($Linguist) {

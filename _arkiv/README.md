@@ -1,5 +1,7 @@
 # Search Related Features
 
+*[Dansk version](README.da.md)*
+
 QGIS plugin. Run a free-text search on an attribute table without geometry and
 have the related polygons selected in the map.
 
@@ -13,6 +15,26 @@ where each row points at a polygon through a shared key field. One table can
 point at several polygon layers — for instance when the geometries are split
 across layers — and the plugin then selects in whichever layers match.
 
+## Installation
+
+Install the zip through *Plugins > Manage and Install Plugins > Install from
+ZIP*. Build the zip with:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\build.ps1
+```
+
+It lands in `build\`. Do not zip the folder by hand: the `.qm` files are not in
+Git, and a zip without them falls back to English with no error message.
+
+During development, deploy straight into a QGIS profile instead:
+
+```powershell
+.\build.ps1 -Deploy                 # the "default" profile
+.\build.ps1 -Deploy -Profile NST    # another profile
+```
+
+Then reload with Plugin Reloader.
 
 ## Use
 
@@ -178,7 +200,7 @@ file inside the `.qgz` archive.
 To set it up from the console instead:
 
 ```python
-from search_related_features.core.project_config import configs_from_relations, save_configs
+from search_related_features.project_config import configs_from_relations, save_configs
 save_configs(configs_from_relations())
 ```
 
@@ -290,7 +312,7 @@ The whole decision can be inspected from the console:
 ```python
 import qgis.utils, importlib
 name = [n for n in qgis.utils.plugins if "related_features" in n.lower()][0]
-tr = importlib.import_module(name + ".core.translation")
+tr = importlib.import_module(name + ".translation")
 for key, value in tr.report().items():
     print(key, "=", value)
 ```
@@ -300,7 +322,7 @@ for key, value in tr.report().items():
 Pull the strings out of the code and update the `.ts` file:
 
 ```
-pylupdate5 *.py core/*.py gui/*.py -ts i18n/search_related_features_da.ts
+pylupdate5 *.py -ts i18n/search_related_features_da.ts
 ```
 
 Correct the translations in Qt Linguist, then compile to `.qm`:
@@ -351,29 +373,21 @@ in the setup — is not translated.
 
 ```
 search_related_features/
-├── __init__.py             classFactory: installs the translator, starts the plugin
-├── plugin.py               main class: toolbar, menu, project hooks
+├── __init__.py                 classFactory
 ├── metadata.txt
-├── core/                   no Qt widgets, no dependency on gui/
-│   ├── project_config.py       read/write setup in the project, validation
-│   ├── key_index.py            key lookups: IN expression and cached index
-│   ├── value_format.py         translates stored codes to displayed text
-│   └── translation.py          language choice and loading of translations
-├── gui/
-│   ├── search_panel.py         the dock panel: search, filters, selection
-│   ├── config_dialog.py        settings dialog
-│   └── facet_filter.py         column filters with cascading value lists
-├── i18n/                   .ts sources and compiled .qm files
-├── images/                 icons
-├── build.ps1               compiles translations, checks, packages the zip
-├── LICENSE                 GPL v2 text
-└── README.md
+├── search_related_features.py     main class: toolbar, menu, project hooks
+├── search_panel.py             the dock panel: search, filters, selection
+├── facet_filter.py             column filters with cascading value lists
+├── value_format.py             translates stored codes to displayed text
+├── config_dialog.py            settings dialog
+├── project_config.py           read/write setup in the project, validation
+├── key_index.py                key lookups: IN expression and cached index
+├── translation.py              language choice and loading of translations
+├── build.ps1                   compiles translations, checks, packages the zip
+├── LICENSE                     GPL v2 text
+├── i18n/                       .ts sources and compiled .qm files
+└── images/
 ```
-
-`core/` holds everything that works on data and settings; `gui/` holds the Qt
-widgets. The dependency runs one way only — `gui` imports from `core`, never the
-other way round — so the panel can be reworked without touching the lookup
-logic, and `core` can be exercised from the Python console on its own.
 
 ## Known limitations
 
