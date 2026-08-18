@@ -1,0 +1,27 @@
+[general]
+name=Search Related Features
+qgisMinimumVersion=3.28
+description=Search geometryless attribute tables and select the related polygons in the map. The setup is stored in the project file.
+description[da]=Søg i attributtabeller uden geometri og vælg de relaterede polygoner i kortet. Opsætningen gemmes i projektfilen.
+version=0.1.0
+author=Naturstyrelsen
+email=CHANGE_ME@nst.dk
+
+about=The plugin adds a search panel where you can run a free-text search and column filters on a table without geometry, and have the related polygons selected in one or more map layers. Linking is done on named fields, not on relation ids, so the setup survives relations being deleted and recreated.<br><br>The setup is stored as a project property in the .qgz file and therefore travels with the project template. Opening a project with no stored setup, it is derived automatically from the relations of the project.<br><br>Key lookups use an IN expression for small selections and a per-session index for large ones, so a click does not fetch a whole layer from a remote source such as an ArcGIS FeatureServer or WFS.
+about[da]=Plugin'et giver et søgepanel, hvor man kan fritekstsøge og kolonnefiltrere i en tabel uden geometri og få de relaterede polygoner valgt i ét eller flere kortlag. Sammenkædningen sker på navngivne felter, ikke på relations-id, så opsætningen overlever at relationer bliver slettet og genoprettet.<br><br>Opsætningen gemmes som projektegenskab i .qgz-filen og følger derfor med projektskabelonen. Åbnes et projekt uden gemt opsætning, udledes den automatisk af projektets relationer.<br><br>Nøgleopslag sker med et IN-udtryk ved få nøgler og et indeks pr. session ved mange, så et klik ikke henter et helt lag fra en fjernkilde som ArcGIS FeatureServer eller WFS.
+
+tracker=CHANGE_ME
+repository=CHANGE_ME
+homepage=CHANGE_ME
+
+changelog=0.1.0 - First version. Search panel, project-stored setup, settings dialog, map selection sync, English and Danish user interface.
+
+tags=select, relationship, relation, search, filter, attribute table, database
+tags[da]=vælg, relation, søg, filter, attributtabel, database
+
+category=Database
+icon=images/icon.svg
+
+experimental=True
+deprecated=False
+supportsQt6=False
